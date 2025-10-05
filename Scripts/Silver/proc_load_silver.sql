@@ -100,7 +100,7 @@ BEGIN
 				WHEN UPPER(TRIM(prd_line)) = 'S' THEN 'Other Sales'
 				WHEN UPPER(TRIM(prd_line)) = 'T' THEN 'Touring'
 				ELSE 'n/a'
-			END AS prd_line, -- Map product line codes to descriptive values
+			END AS prd_line, 
 			CAST(prd_start_dt AS DATE) AS prd_start_dt,
 			CAST(
 				LEAD(prd_start_dt) OVER (PARTITION BY prd_key ORDER BY prd_start_dt) - 1 
@@ -182,7 +182,7 @@ BEGIN
 				WHEN UPPER(TRIM(gen)) IN ('F', 'FEMALE') THEN 'Female'
 				WHEN UPPER(TRIM(gen)) IN ('M', 'MALE') THEN 'Male'
 				ELSE 'n/a'
-			END AS gen -- Normalize gender values and handle unknown cases
+			END AS gen -- Normalize gender values and handling unknown cases
 		FROM bronze.erp_cust_az12;
 	    SET @end_time = GETDATE();
         PRINT '>> Load Duration: ' + CAST(DATEDIFF(SECOND, @start_time, @end_time) AS NVARCHAR) + ' seconds';
